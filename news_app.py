@@ -4,6 +4,7 @@ import news_service
 
 app = FastAPI()
 
+
 @app.get("/news/", status_code=200)
 def get_news(language: Optional[str] = Query("en", description="Language of the news feed")):
     try:
