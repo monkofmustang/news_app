@@ -4,8 +4,11 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
 def ok_en():
     rss_url = os.getenv("THE_HIMALAYAN_EN")
+    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         ok_nep_feeds = feedparser.parse(rss_url)
         news_items = []
@@ -17,7 +20,7 @@ def ok_en():
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": "News",
-                "image": entry.media_thumbnail[0]['url']
+                "image": entry.media_thumbnail[0]['url'] if entry.media_thumbnail[0]['url'] else placeholder_image_url
             })
         return news_items
     except Exception as e:
@@ -25,5 +28,3 @@ def ok_en():
     # news_json = json.dumps(news_items, ensure_ascii=False, indent=4)
     # # print(news_json)
     # return news_json
-
-# ok_en()

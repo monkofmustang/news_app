@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 def ob_news_np():
     rss_url = os.getenv("OUR_BIRATNAGAR_NP")
+    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         feed = feedparser.parse(rss_url)
         news_items = []
@@ -22,7 +23,7 @@ def ob_news_np():
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": entry.category,
-                "image": image_url
+                "image": image_url if image_url else placeholder_image_url
             })
         return news_items
     except Exception as e:

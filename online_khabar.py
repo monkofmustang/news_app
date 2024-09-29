@@ -5,8 +5,11 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
+
+
 def ok_np():
     rss_url = os.getenv("ONLINE_KHABAR_NP")
+    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         ok_nep_feeds = feedparser.parse(rss_url)
         news_items = []
@@ -22,7 +25,7 @@ def ok_np():
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": entry.category,
-                "image": image_url
+                "image": image_url if image_url else placeholder_image_url
             })
         return news_items
     except Exception as e:
@@ -34,6 +37,7 @@ def ok_np():
 
 def ok_en():
     rss_url = os.getenv("ONLINE_KHABAR_EN")
+    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         ok_nep_feeds = feedparser.parse(rss_url)
         news_items = []
@@ -49,7 +53,7 @@ def ok_en():
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": entry.category,
-                "image": image_url
+                "image": image_url if image_url else placeholder_image_url
             })
         return news_items
     except Exception as e:

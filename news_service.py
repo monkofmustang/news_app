@@ -4,6 +4,7 @@ import nepal_news
 import online_khabar
 from fastapi import HTTPException
 import time
+import random
 
 cache = {}
 CACHE_EXPIRY_TIME = 900
@@ -47,6 +48,7 @@ def summarise_news(language: str = "en"):
             combined_news.extend(ob_json)
         else:
             raise HTTPException(status_code=400, detail="Language not supported")
+        random.shuffle(combined_news)
         cache_news_result(language, combined_news)
         return combined_news
     except Exception as e:
