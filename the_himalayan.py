@@ -8,7 +8,6 @@ load_dotenv()
 
 def ok_en():
     rss_url = os.getenv("THE_HIMALAYAN_EN")
-    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         ok_nep_feeds = feedparser.parse(rss_url)
         news_items = []
@@ -20,7 +19,8 @@ def ok_en():
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": "News",
-                "image": entry.media_thumbnail[0]['url'] if entry.media_thumbnail[0]['url'] else placeholder_image_url
+                "image": entry.media_thumbnail[0]['url'] if entry.media_thumbnail[0]['url'] else None,
+                "publisher": 'THE HIMALAYAN TIMES'
             })
         return news_items
     except Exception as e:

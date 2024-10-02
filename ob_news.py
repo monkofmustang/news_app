@@ -3,11 +3,13 @@ import re
 from fastapi import HTTPException
 import os
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
 
 load_dotenv()
+
+
 def ob_news_np():
     rss_url = os.getenv("OUR_BIRATNAGAR_NP")
-    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         feed = feedparser.parse(rss_url)
         news_items = []
@@ -16,14 +18,17 @@ def ob_news_np():
                 entry.content) > 0 else None
             image_url_match = re.search(r'(https?://[^\s]+\.jpeg)', content_value)
             image_url = image_url_match.group(0) if image_url_match else None
+            soup = BeautifulSoup(content_value, "html.parser")
+            content_text = soup.get_text(separator="\n")
             news_items.append({
                 "title": entry.title,
                 "description": entry.description,
-                "content": entry.content[0].value,
+                "content": content_text,
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": entry.category,
-                "image": image_url if image_url else placeholder_image_url
+                "image": image_url,
+                "publisher": 'Our Biratnagar'
             })
         return news_items
     except Exception as e:

@@ -3,13 +3,13 @@ import re
 from fastapi import HTTPException
 import os
 from dotenv import load_dotenv
+from bs4 import BeautifulSoup
 
 load_dotenv()
 
 
 def ok_np():
     rss_url = os.getenv("ONLINE_KHABAR_NP")
-    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         ok_nep_feeds = feedparser.parse(rss_url)
         news_items = []
@@ -18,14 +18,17 @@ def ok_np():
                 entry.content) > 0 else None
             image_url_match = re.search(r'(https?://\S+\.jpg)', content_value)
             image_url = image_url_match.group(0) if image_url_match else None
+            soup = BeautifulSoup(content_value, "html.parser")
+            content_text = soup.get_text(separator="\n")
             news_items.append({
                 "title": entry.title,
                 "description": entry.description,
-                "content": entry.content[0].value,
+                "content": content_text,
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": entry.category,
-                "image": image_url if image_url else placeholder_image_url
+                "image": image_url,
+                "publisher": 'Online Khabar'
             })
         return news_items
     except Exception as e:
@@ -37,7 +40,6 @@ def ok_np():
 
 def ok_en():
     rss_url = os.getenv("ONLINE_KHABAR_EN")
-    placeholder_image_url = os.getenv("NULL_IMAGES")
     try:
         ok_nep_feeds = feedparser.parse(rss_url)
         news_items = []
@@ -46,14 +48,17 @@ def ok_en():
                 entry.content) > 0 else None
             image_url_match = re.search(r'(https?://\S+\.jpg)', content_value)
             image_url = image_url_match.group(0) if image_url_match else None
+            soup = BeautifulSoup(content_value, "html.parser")
+            content_text = soup.get_text(separator="\n")
             news_items.append({
                 "title": entry.title,
                 "description": entry.description,
-                "content": entry.content[0].value,
+                "content": content_text,
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": entry.category,
-                "image": image_url if image_url else placeholder_image_url
+                "image": image_url,
+                "publisher": 'Online Khabar'
             })
         return news_items
     except Exception as e:
