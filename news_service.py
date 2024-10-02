@@ -2,6 +2,7 @@ import ob_news
 import the_himalayan
 import nepal_news
 import online_khabar
+import nagarik_news
 from fastapi import HTTPException
 import time
 import random
@@ -44,8 +45,10 @@ def summarise_news(language: str = "en"):
         elif language == "np":
             ok_json = online_khabar.ok_np()
             ob_json = ob_news.ob_news_np()
+            nagarik_json = nagarik_news.nagarik_np()
             combined_news.extend(ok_json)
             combined_news.extend(ob_json)
+            combined_news.extend(nagarik_json)
         else:
             raise HTTPException(status_code=400, detail="Language not supported")
         random.shuffle(combined_news)
