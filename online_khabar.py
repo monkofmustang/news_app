@@ -47,7 +47,7 @@ def ok_en():
             content_value = entry.content[0].value if hasattr(entry.content, '__getitem__') and len(
                 entry.content) > 0 else None
             image_url_match = re.search(r'(https?://\S+\.jpg)', content_value)
-            image_url = image_url_match.group(0) if image_url_match else None
+            image_url = image_url_match.group(0).replace("http","https") if image_url_match else None
             soup = BeautifulSoup(content_value, "html.parser")
             content_text = soup.get_text(separator="\n")
             news_items.append({

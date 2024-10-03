@@ -8,7 +8,7 @@ import time
 import random
 
 cache = {}
-CACHE_EXPIRY_TIME = 900
+CACHE_EXPIRY_TIME = 3600
 
 
 def cache_news_result(language: str, data):
