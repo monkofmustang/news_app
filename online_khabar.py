@@ -57,7 +57,7 @@ def ok_en():
                 "link": entry.link,
                 "pubDate": entry.published,
                 "category": entry.category,
-                "image": image_url,
+                "image": "https://english.onlinekhabar.com/wp-content/uploads/2020/09/cropped-logo-footer-32x32.png",
                 "publisher": 'Online Khabar'
             })
         return news_items
