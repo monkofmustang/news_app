@@ -6,6 +6,7 @@ import nagarik_news
 from fastapi import HTTPException
 import time
 import random
+from datetime import datetime
 
 cache = {}
 CACHE_EXPIRY_TIME = 3600
@@ -52,6 +53,8 @@ def summarise_news(language: str = "en"):
         else:
             raise HTTPException(status_code=400, detail="Language not supported")
         random.shuffle(combined_news)
+        combined_news.sort(key=lambda news: datetime.strptime(news["pubDate"], "%a, %d %b %Y %H:%M:%S %z"),
+                           reverse=True)
         cache_news_result(language, combined_news)
         return combined_news
     except Exception as e:
