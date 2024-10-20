@@ -1,6 +1,6 @@
 from fastapi import APIRouter, FastAPI, Query, HTTPException
 from typing import Optional
-import news_service
+from service import news_service
 
 app = FastAPI()
 

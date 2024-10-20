@@ -1,15 +1,11 @@
-import ob_news
-import the_himalayan
-import nepal_news
-import online_khabar
-import nagarik_news
+from newsFeeds import nagarik_news, nepal_news, ob_news, online_khabar, the_himalayan, rajdhani_daily, news_of_nepal
 from fastapi import HTTPException
 import time
 import random
 from datetime import datetime
 
 cache = {}
-CACHE_EXPIRY_TIME = 3600
+CACHE_EXPIRY_TIME = 7200
 
 
 def cache_news_result(language: str, data):
@@ -47,9 +43,13 @@ def summarise_news(language: str = "en"):
             ok_json = online_khabar.ok_np()
             ob_json = ob_news.ob_news_np()
             nagarik_json = nagarik_news.nagarik_np()
+            rj_d = rajdhani_daily.rd_np()
+            nfn = news_of_nepal.non_np()
             combined_news.extend(ok_json)
             combined_news.extend(ob_json)
             combined_news.extend(nagarik_json)
+            combined_news.extend(rj_d)
+            combined_news.extend(nfn)
         else:
             raise HTTPException(status_code=400, detail="Language not supported")
         random.shuffle(combined_news)

@@ -11,4 +11,4 @@ app.include_router(news_controller.router)
 # Root route
 @app.get("/")
 async def root():
-    return {"message": "Welcome to Nepal News!"}
+    return {"message": "Welcome to SROT !"}
