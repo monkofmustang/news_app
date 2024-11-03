@@ -8,6 +8,13 @@ cache = {}
 CACHE_EXPIRY_TIME = 7200
 
 
+def truncate_content(content: str, word_limit: int = 150) -> str:
+    words = content.split()
+    if len(words) > word_limit:
+        return ' '.join(words[:word_limit]) + '...'
+    return content
+
+
 def cache_news_result(language: str, data):
     cache[language] = {
         "data": data,
@@ -55,6 +62,10 @@ def summarise_news(language: str = "en"):
         random.shuffle(combined_news)
         combined_news.sort(key=lambda news: datetime.strptime(news["pubDate"], "%a, %d %b %Y %H:%M:%S %z"),
                            reverse=True)
+        for news_item in combined_news:
+            if 'content' in news_item:
+                news_item['content'] = truncate_content(news_item['content'])
+
         cache_news_result(language, combined_news)
         return combined_news
     except Exception as e:
