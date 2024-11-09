@@ -7,7 +7,7 @@ load_dotenv()
 def truncate_content(content: str, word_limit: int = 6) -> str:
     words = content.split()
     if len(words) > word_limit:
-        return ' '.join(words[:word_limit]) + '...'
+        return ' '.join(words[:word_limit]) + '-Nepali'
     return content
 
 
