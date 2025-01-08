@@ -13,7 +13,7 @@ router = APIRouter(
 
 @router.get("/")
 async def codeToSave():
-    printf("code not implimented")
+    print("code not implimented")
 
 # @router.post("/")
 # async def create_subscriber(subscriber: Subscribers):
