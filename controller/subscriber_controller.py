@@ -1,11 +1,11 @@
-from fastapi import APIRouter, HTTPException
-from models.subscribers import Subscribers
-from db.db_connection import get_collection
-
-router = APIRouter(
-    prefix="/subscribers",  # All routes will be prefixed with /subscribers
-    tags=["Subscribers"],  # Tag for grouping in the documentation
-)
+# from fastapi import APIRouter, HTTPException
+# from models.subscribers import Subscribers
+# # from db.db_connection import get_collection
+#
+# router = APIRouter(
+#     prefix="/subscribers",  # All routes will be prefixed with /subscribers
+#     tags=["Subscribers"],  # Tag for grouping in the documentation
+# )
 
 # collection = get_collection("subscription")
 
