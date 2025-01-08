@@ -1,14 +1,19 @@
-# from fastapi import APIRouter, HTTPException
-# from models.subscribers import Subscribers
+from fastapi import APIRouter, HTTPException
+from models.subscribers import Subscribers
+
 # # from db.db_connection import get_collection
 #
-# router = APIRouter(
-#     prefix="/subscribers",  # All routes will be prefixed with /subscribers
-#     tags=["Subscribers"],  # Tag for grouping in the documentation
-# )
+router = APIRouter(
+    prefix="/subscribers",  # All routes will be prefixed with /subscribers
+    tags=["Subscribers"],  # Tag for grouping in the documentation
+)
+
 
 # collection = get_collection("subscription")
 
+@router.get("/")
+async def codeToSave():
+    printf("code not implimented")
 
 # @router.post("/")
 # async def create_subscriber(subscriber: Subscribers):
