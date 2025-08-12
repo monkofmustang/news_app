@@ -1,8 +1,6 @@
-from fastapi import APIRouter, FastAPI, Query, HTTPException
+from fastapi import APIRouter, Query, HTTPException
 from typing import Optional
 from service import news_service
-
-app = FastAPI()
 
 router = APIRouter(
     prefix="/news",  # All routes will be prefixed with /news

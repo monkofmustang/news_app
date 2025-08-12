@@ -71,5 +71,3 @@ def summarise_news(language: str = "en"):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error summarising news: {str(e)}")
 
-# combined_news_items = summarise_news(language="en")
-# print(json.dumps(combined_news_items, ensure_ascii=False, indent=4))
