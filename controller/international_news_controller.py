@@ -57,7 +57,7 @@ async def get_international_news(
         news_items = db.query(News).filter(
             News.tag == "international_news"
         ).order_by(
-            News.created_at.desc()
+            News.pub_date.desc()
         ).offset(offset).limit(limit).all()
         
         return news_items
